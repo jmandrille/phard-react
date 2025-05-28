@@ -1,21 +1,77 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import Product from './Product';
 
-const mockProducts = [
-  { id: 1, name: 'Producto Elegante 1', price: '120.50', image: 'https://placehold.co/300x200/E8D5C4/31304D?text=Producto+1' },
-  { id: 2, name: 'Artículo Moderno 2', price: '85.00', image: 'https://placehold.co/300x200/A79277/31304D?text=Producto+2' },
-  { id: 3, name: 'Gadget Útil 3', price: '49.99', image: 'https://placehold.co/300x200/D1BB9E/31304D?text=Producto+3' },
-  { id: 4, name: 'Accesorio Genial 4', price: '25.75', image: 'https://placehold.co/300x200/EFEBE0/31304D?text=Producto+4' },
-  { id: 5, name: 'Extra Atractivo 5', price: '150.00', image: 'https://placehold.co/300x200/E8D5C4/31304D?text=Producto+5' },
-  { id: 6, name: 'Novedad Brillante 6', price: '99.00', image: 'https://placehold.co/300x200/A79277/31304D?text=Producto+6' },
-];
-
 function ProductList({ addToCart }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch('https://fakestoreapi.com/products');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        const formattedProducts = data.map(item => ({
+          id: item.id,
+          name: item.title, // API usa 'title', nosotros 'name'
+          price: item.price.toFixed(2), // Asegurar dos decimales
+          image: item.image,
+          description: item.description, // Podríamos usarlo más adelante
+          category: item.category // Podríamos usarlo más adelante
+        }));
+        setProducts(formattedProducts);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Cargando productos...</span>
+        </Spinner>
+        <p className="mt-2">Cargando productos...</p>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className="mt-5">
+        <Alert variant="danger">
+          <Alert.Heading>Error al Cargar Productos</Alert.Heading>
+          <p>Ha ocurrido un error: {error}</p>
+          <p>Por favor, intenta recargar la página o vuelve más tarde.</p>
+        </Alert>
+      </Container>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+        <Container className="mt-5">
+            <Alert variant="info">No hay productos disponibles en este momento.</Alert>
+        </Container>
+    );
+  }
+
   return (
     <Container fluid className="mt-4 px-md-4 px-lg-5">
       <Row>
-        {mockProducts.map(product => (
+        {products.map(product => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex justify-content-center">
             <Product product={product} addToCart={addToCart} />
           </Col>
