@@ -12,12 +12,13 @@ function Cart({ cartItems = [] }) {
           <ListGroup>
             {cartItems.map(item => (
               <ListGroup.Item key={item.id}>
-                {item.name} - ${item.price} x {item.quantity}
+                {item.name} - ${item.price} (Cantidad: {item.quantity})
               </ListGroup.Item>
             ))}
           </ListGroup>
           <div className="mt-3">
-            <h4>Total: $ {/* Lógica de total aquí más adelante */}</h4>
+            {/* Lógica de total aquí más adelante */}
+            <h4>Total: $0.00</h4>
             <Button variant="success">Proceder al Pago</Button>
           </div>
         </>

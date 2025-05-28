@@ -11,13 +11,13 @@ const mockProducts = [
   { id: 6, name: 'Novedad Brillante 6', price: '99.00', image: 'https://placehold.co/300x200/A79277/31304D?text=Producto+6' },
 ];
 
-function ProductList() {
+function ProductList({ addToCart }) {
   return (
     <Container fluid className="mt-4 px-md-4 px-lg-5">
       <Row>
         {mockProducts.map(product => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex justify-content-center">
-            <Product product={product} />
+            <Product product={product} addToCart={addToCart} />
           </Col>
         ))}
       </Row>
