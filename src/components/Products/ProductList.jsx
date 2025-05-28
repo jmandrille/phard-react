@@ -2,17 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import Product from './Product';
 
-function ProductList() {
+function ProductList({ categoryName }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentCategory, setCurrentCategory] = useState(null);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
+      let apiUrl = 'https://fakestoreapi.com/products';
+      if (categoryName) {
+        apiUrl = `https://fakestoreapi.com/products/category/${encodeURIComponent(categoryName)}`;
+        setCurrentCategory(categoryName);
+      } else {
+        setCurrentCategory(null);
+      }
+
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('https://fakestoreapi.com/products');
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -33,8 +43,9 @@ function ProductList() {
         setLoading(false);
       }
     };
+
     fetchProducts();
-  }, []);
+  }, [categoryName]);
 
   if (loading) {
     return (
@@ -46,27 +57,35 @@ function ProductList() {
       </Container>
     );
   }
-  if (error) { 
+
+  if (error) {
     return (
       <Container className="mt-5">
         <Alert variant="danger">
           <Alert.Heading>Error al Cargar Productos</Alert.Heading>
           <p>Ha ocurrido un error: {error}</p>
-          <p>Por favor, intenta recargar la página o vuelve más tarde.</p>
         </Alert>
       </Container>
     );
   }
-  if (products.length === 0 && !loading) {
+
+  if (products.length === 0) {
     return (
-        <Container className="mt-5">
-            <Alert variant="info">No hay productos disponibles en este momento.</Alert>
+        <Container className="mt-5 text-center">
+            <Alert variant="info" className="d-inline-block">
+              No hay productos disponibles {currentCategory ? `en la categoría "${currentCategory}"` : 'en este momento'}.
+            </Alert>
         </Container>
     );
   }
 
+  const pageTitle = currentCategory 
+    ? `Productos en: ${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` 
+    : "Todos los Productos";
+
   return (
     <Container fluid className="mt-4 px-md-4 px-lg-5">
+      <h2 className="mb-4 text-center" style={{ textTransform: 'capitalize' }}>{pageTitle}</h2>
       <Row>
         {products.map(product => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex justify-content-center">

@@ -7,6 +7,7 @@ import ProductosPage from './pages/ProductosPage';
 import ContactoPage from './pages/ContactoPage';
 import CartPage from './pages/CartPage';
 import ProductDetailPage from './pages/ProductDetailPage';
+import CategoryPage from './pages/CategoryPage';
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/productos" element={<ProductosPage />} />
           <Route path="/producto/:productId" element={<ProductDetailPage />} />
+          <Route path="/categoria/:categoryName" element={<CategoryPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/carrito" element={<CartPage />} />
           <Route path="*" element={<NotFoundPage />} />
