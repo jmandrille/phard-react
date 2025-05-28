@@ -6,7 +6,7 @@ import { useCart } from '../../contexts/CartContext';
 function Product({ product }) {
   const { addToCart } = useCart();
 
-  const placeholderImage = "https://placehold.co/300x200?text=Producto";
+  const placeholderImage = "https://placehold.co/300x200?text=Producto"; // Este placeholder no es cuadrado
   const productName = product?.name || "Nombre del Producto";
   const productPrice = product?.price || "99.99";
   const productImage = product?.image || placeholderImage;
@@ -18,7 +18,12 @@ function Product({ product }) {
   return (
     <Card style={{ width: '18rem', marginBottom: '1rem' }}>
       <Link to={`/producto/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <Card.Img variant="top" src={productImage} alt={productName} />
+        <Card.Img 
+          variant="top" 
+          src={productImage} 
+          alt={productName} 
+          className="product-card-image-square" 
+        />
       </Link>
       <Card.Body>
         <Card.Title>
