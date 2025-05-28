@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (username, password) => {
-    if (username === 'user' && password === 'pass') {
+    if (username === 'talento' && password === '2025') {
       localStorage.setItem('isLoggedIn', 'true');
       setIsLoggedIn(true);
       console.log('Login exitoso');

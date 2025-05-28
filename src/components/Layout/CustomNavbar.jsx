@@ -38,8 +38,8 @@ function CustomNavbar() {
 
 
   const handleLogin = () => {
-    const username = prompt('Usuario:', 'user');
-    const password = prompt('Contraseña:', 'pass');
+    const username = prompt('Usuario:', 'talento');
+    const password = prompt('Contraseña:', '2025');
     if (username && password) {
       const success = login(username, password);
       if (success) {
