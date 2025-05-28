@@ -10,9 +10,6 @@ function ContactoPage() {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Correo Electrónico</Form.Label>
           <Form.Control type="email" placeholder="Ingresa tu email" />
-          <Form.Text className="text-muted">
-            Nunca compartiremos tu correo con nadie más.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicMessage">

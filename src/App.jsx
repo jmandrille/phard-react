@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/Layout/MainLayout';
+import HomePage from './pages/HomePage';
 import ProductosPage from './pages/ProductosPage';
-// Más adelante, aquí también podríamos querer mostrar el componente Cart o pasarle cartItems
-import Cart from './components/Cart/Cart';
+import ContactoPage from './pages/ContactoPage';
+import CartPage from './pages/CartPage';
 import './App.css';
 
 function App() {
@@ -23,13 +25,21 @@ function App() {
     });
   };
 
+
   return (
     <MainLayout>
-      <ProductosPage addToCart={addToCart} />
-      {/* Mostrar temporalmente el carrito para pruebas */}
-      <div className="container mt-5"> {/* Usamos un container de bootstrap para centrar el carrito */}
-        <Cart cartItems={cartItems} />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route 
+          path="/productos" 
+          element={<ProductosPage addToCart={addToCart} />} 
+        />
+        <Route path="/contacto" element={<ContactoPage />} />
+        <Route 
+          path="/carrito" 
+          element={<CartPage cartItems={cartItems} />} 
+        />
+      </Routes>
     </MainLayout>
   );
 }
