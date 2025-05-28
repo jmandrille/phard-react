@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Spinner, Alert } from 'react-bootstrap';
+import { useCart } from '../contexts/CartContext';
 
-function ProductDetailPage({ addToCart }) {
+function ProductDetailPage() {
   const { productId } = useParams();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,10 +34,7 @@ function ProductDetailPage({ addToCart }) {
         setLoading(false);
       }
     };
-
-    if (productId) {
-      fetchProductDetails();
-    }
+    if (productId) { fetchProductDetails(); }
   }, [productId]);
 
   const handleAddToCart = () => {
@@ -45,18 +44,18 @@ function ProductDetailPage({ addToCart }) {
     }
   };
 
-  if (loading) {
-    return (
-      <Container className="text-center mt-5">
-        <Spinner animation="border" role="status" variant="primary">
-          <span className="visually-hidden">Cargando detalles del producto...</span>
-        </Spinner>
-        <p>Cargando detalles del producto...</p>
-      </Container>
-    );
-  }
 
-  if (error) {
+  if (loading) {
+      return (
+        <Container className="text-center mt-5">
+          <Spinner animation="border" role="status" variant="primary">
+            <span className="visually-hidden">Cargando detalles del producto...</span>
+          </Spinner>
+          <p>Cargando detalles del producto...</p>
+        </Container>
+      );
+  }
+  if (error) { 
     return (
       <Container className="mt-5">
         <Alert variant="danger">
@@ -66,7 +65,6 @@ function ProductDetailPage({ addToCart }) {
       </Container>
     );
   }
-
   if (!product) {
     return (
       <Container className="mt-5">

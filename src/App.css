@@ -1,11 +1,10 @@
-/* src/index.css o tu archivo CSS global */
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Opcional: un fondo para diferenciar el body si es necesario */
+
 body {
-  background-color: #f8f9fa; /* Un gris claro suave, por ejemplo */
+  background-color: #f8f9fa;
 }

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../contexts/CartContext';
 
-function Product({ product, addToCart }) {
+function Product({ product }) {
+  const { addToCart } = useCart();
+
   const placeholderImage = "https://placehold.co/300x200?text=Producto";
   const productName = product?.name || "Nombre del Producto";
   const productPrice = product?.price || "99.99";

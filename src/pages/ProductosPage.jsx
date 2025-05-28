@@ -1,10 +1,10 @@
 import React from 'react';
 import ProductList from '../components/Products/ProductList';
 
-function ProductosPage({ addToCart }) {
+function ProductosPage() {
   return (
     <div>
-      <ProductList addToCart={addToCart} />
+      <ProductList />
     </div>
   );
 }

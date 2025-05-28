@@ -1,12 +1,10 @@
 import React from 'react';
 import Cart from '../components/Cart/Cart';
 
-function CartPage({ cartItems, removeFromCart, updateQuantity }) {
+function CartPage() {
   return (
     <div>
-      <Cart 
-        cartItems={cartItems} 
-      />
+      <Cart />
     </div>
   );
 }

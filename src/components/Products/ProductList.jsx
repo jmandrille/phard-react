@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import Product from './Product';
 
-function ProductList({ addToCart }) {
+function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,14 +17,14 @@ function ProductList({ addToCart }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        
+
         const formattedProducts = data.map(item => ({
           id: item.id,
-          name: item.title, // API usa 'title', nosotros 'name'
-          price: item.price.toFixed(2), // Asegurar dos decimales
+          name: item.title,
+          price: item.price.toFixed(2),
           image: item.image,
-          description: item.description, // Podríamos usarlo más adelante
-          category: item.category // Podríamos usarlo más adelante
+          description: item.description,
+          category: item.category
         }));
         setProducts(formattedProducts);
       } catch (err) {
@@ -33,7 +33,6 @@ function ProductList({ addToCart }) {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
@@ -47,8 +46,7 @@ function ProductList({ addToCart }) {
       </Container>
     );
   }
-
-  if (error) {
+  if (error) { 
     return (
       <Container className="mt-5">
         <Alert variant="danger">
@@ -59,8 +57,7 @@ function ProductList({ addToCart }) {
       </Container>
     );
   }
-
-  if (products.length === 0) {
+  if (products.length === 0 && !loading) {
     return (
         <Container className="mt-5">
             <Alert variant="info">No hay productos disponibles en este momento.</Alert>
@@ -73,7 +70,7 @@ function ProductList({ addToCart }) {
       <Row>
         {products.map(product => (
           <Col key={product.id} xs={12} sm={6} md={4} lg={3} className="mb-4 d-flex justify-content-center">
-            <Product product={product} addToCart={addToCart} />
+            <Product product={product} />
           </Col>
         ))}
       </Row>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { CartProvider } from './contexts/CartContext';
 import MainLayout from './components/Layout/MainLayout';
 import HomePage from './pages/HomePage';
 import ProductosPage from './pages/ProductosPage';
@@ -9,42 +10,18 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import './App.css';
 
 function App() {
-  const [cartItems, setCartItems] = useState([]);
-
-  const addToCart = (productToAdd) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === productToAdd.id);
-      if (existingItem) {
-        return prevItems.map(item =>
-          item.id === productToAdd.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...productToAdd, quantity: 1 }];
-      }
-    });
-  };
-
   return (
-    <MainLayout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route 
-          path="/productos" 
-          element={<ProductosPage addToCart={addToCart} />} 
-        />
-        <Route 
-          path="/producto/:productId" 
-          element={<ProductDetailPage addToCart={addToCart} />} 
-        />
-        <Route path="/contacto" element={<ContactoPage />} />
-        <Route 
-          path="/carrito" 
-          element={<CartPage cartItems={cartItems} />} 
-        />
-      </Routes>
-    </MainLayout>
+    <CartProvider>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/productos" element={<ProductosPage />} />
+          <Route path="/producto/:productId" element={<ProductDetailPage />} />
+          <Route path="/contacto" element={<ContactoPage />} />
+          <Route path="/carrito" element={<CartPage />} />
+        </Routes>
+      </MainLayout>
+    </CartProvider>
   );
 }
 
