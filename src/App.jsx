@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ProductosPage from './pages/ProductosPage';
 import ContactoPage from './pages/ContactoPage';
 import CartPage from './pages/CartPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import './App.css';
 
 function App() {
@@ -25,7 +26,6 @@ function App() {
     });
   };
 
-
   return (
     <MainLayout>
       <Routes>
@@ -33,6 +33,10 @@ function App() {
         <Route 
           path="/productos" 
           element={<ProductosPage addToCart={addToCart} />} 
+        />
+        <Route 
+          path="/producto/:productId" 
+          element={<ProductDetailPage addToCart={addToCart} />} 
         />
         <Route path="/contacto" element={<ContactoPage />} />
         <Route 

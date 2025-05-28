@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Product({ product, addToCart }) {
   const placeholderImage = "https://placehold.co/300x200?text=Producto";
@@ -13,9 +14,15 @@ function Product({ product, addToCart }) {
 
   return (
     <Card style={{ width: '18rem', marginBottom: '1rem' }}>
-      <Card.Img variant="top" src={productImage} alt={productName} />
+      <Link to={`/producto/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Card.Img variant="top" src={productImage} alt={productName} />
+      </Link>
       <Card.Body>
-        <Card.Title>{productName}</Card.Title>
+        <Card.Title>
+          <Link to={`/producto/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {productName}
+          </Link>
+        </Card.Title>
         <Card.Text>
           Precio: ${productPrice}
         </Card.Text>
