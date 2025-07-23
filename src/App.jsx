@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { CartProvider } from './contexts/CartContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProductsProvider } from './contexts/ProductsContext';
@@ -26,26 +27,31 @@ function App() {
     <AuthProvider>
       <ProductsProvider>
         <CartProvider>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
           <MainLayout>
             <Routes>
-              {/* Rutas Públicas */}
               <Route path="/" element={<HomePage />} />
               <Route path="/productos" element={<ProductosPage />} />
               <Route path="/producto/:productId" element={<ProductDetailPage />} />
               <Route path="/categoria/:categoryName" element={<CategoryPage />} />
               <Route path="/contacto" element={<ContactoPage />} />
               <Route path="/login" element={<LoginPage />} />
-
-              {/* Rutas Protegidas */}
               <Route path="/carrito" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
               <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
-              
-              {/* Rutas de Administración Protegidas */}
               <Route path="/admin/products" element={<ProtectedRoute><AdminProductsPage /></ProtectedRoute>} />
               <Route path="/admin/add-product" element={<ProtectedRoute><AddProductPage /></ProtectedRoute>} />
               <Route path="/admin/edit/:productId" element={<ProtectedRoute><EditProductPage /></ProtectedRoute>} />
-
-              {/* Ruta 404 */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </MainLayout>

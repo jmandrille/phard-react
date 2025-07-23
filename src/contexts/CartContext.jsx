@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -13,7 +14,6 @@ const CART_ACTIONS = {
   CLEAR_CART: 'clear-cart',
   LOAD_CART: 'load-cart',
 };
-
 const cartReducer = (state, action) => {
   switch (action.type) {
     case CART_ACTIONS.LOAD_CART:
@@ -57,7 +57,6 @@ const getInitialCart = () => {
   }
 };
 
-
 export const CartProvider = ({ children }) => {
   const [cartItems, dispatch] = useReducer(cartReducer, [], getInitialCart);
 
@@ -65,13 +64,14 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-
   const addToCart = (product) => {
     dispatch({ type: CART_ACTIONS.ADD_ITEM, payload: product });
+    toast.success(`"${product.name}" agregado al carrito!`);
   };
 
   const removeFromCart = (productId) => {
     dispatch({ type: CART_ACTIONS.REMOVE_ITEM, payload: { id: productId } });
+    toast.info('Producto eliminado del carrito.');
   };
 
   const updateItemQuantity = (productId, quantity) => {
@@ -80,8 +80,9 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     dispatch({ type: CART_ACTIONS.CLEAR_CART });
+    toast.warn('El carrito ha sido vaciado.');
   };
-
+  
   const getCartItemCount = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };

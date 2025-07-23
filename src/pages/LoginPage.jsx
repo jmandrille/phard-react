@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,12 +15,11 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
     const success = login(username, password);
     if (success) {
       navigate(from, { replace: true });
     } else {
-      setError('Credenciales incorrectas. Por favor, intenta de nuevo.');
+      toast.error('Credenciales incorrectas. Por favor, intenta de nuevo.');
     }
   };
 
@@ -29,27 +28,16 @@ function LoginPage() {
       <Card style={{ width: '100%', maxWidth: '400px' }}>
         <Card.Body>
           <h2 className="text-center mb-4">Iniciar Sesión</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="username" className="mb-3">
               <Form.Label>Usuario</Form.Label>
-              <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
+              <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </Form.Group>
-            <p className="mt-3 small">Para probar, usa: <strong>Usuario:</strong> `user` / <strong>Contraseña:</strong> `pass`</p>
+            <p className="mt-3 small">Para probar, usa: <strong>Usuario:</strong> `talento` / <strong>Contraseña:</strong> `2025`</p>
             <Button className="w-100 mt-3" type="submit">
               Iniciar Sesión
             </Button>
