@@ -11,19 +11,22 @@ function ProductDetailPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const apiUrl = `https://6880fa88f1dcae717b643438.mockapi.io/api/v1/productos/${productId}`;
+
     const fetchProductDetails = async () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`https://fakestoreapi.com/products/${productId}`);
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        
         setProduct({
             id: data.id,
             name: data.title,
-            price: data.price.toFixed(2),
+            price: parseFloat(data.price).toFixed(2),
             image: data.image,
             description: data.description,
             category: data.category
@@ -34,7 +37,10 @@ function ProductDetailPage() {
         setLoading(false);
       }
     };
-    if (productId) { fetchProductDetails(); }
+
+    if (productId) {
+      fetchProductDetails();
+    }
   }, [productId]);
 
   const handleAddToCart = () => {
@@ -44,18 +50,18 @@ function ProductDetailPage() {
     }
   };
 
-
   if (loading) {
-      return (
-        <Container className="text-center mt-5">
-          <Spinner animation="border" role="status" variant="primary">
-            <span className="visually-hidden">Cargando detalles del producto...</span>
-          </Spinner>
-          <p>Cargando detalles del producto...</p>
-        </Container>
-      );
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">Cargando detalles del producto...</span>
+        </Spinner>
+        <p>Cargando detalles del producto...</p>
+      </Container>
+    );
   }
-  if (error) { 
+
+  if (error) {
     return (
       <Container className="mt-5">
         <Alert variant="danger">
@@ -65,6 +71,7 @@ function ProductDetailPage() {
       </Container>
     );
   }
+
   if (!product) {
     return (
       <Container className="mt-5">
@@ -81,7 +88,7 @@ function ProductDetailPage() {
         </Col>
         <Col md={6}>
           <h2>{product.name}</h2>
-          <p className="lead text-muted">{product.category}</p>
+          <p className="lead text-muted" style={{ textTransform: 'capitalize' }}>{product.category}</p>
           <hr />
           <h4>Descripción:</h4>
           <p>{product.description}</p>

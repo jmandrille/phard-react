@@ -13,6 +13,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import CategoryPage from './pages/CategoryPage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
+import AddProductPage from './pages/AddProductPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css';
@@ -45,6 +46,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/add-product" 
+              element={
+                <ProtectedRoute>
+                  <AddProductPage />
                 </ProtectedRoute>
               }
             />

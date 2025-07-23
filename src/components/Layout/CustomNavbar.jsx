@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, NavDropdown, Spinner, Button } from 'react-boot
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
+import phardNavbarLogo from '/phard-navbar-logo.png';
 
 function CustomNavbar() {
   const { getCartItemCount } = useCart();
@@ -46,11 +47,10 @@ function CustomNavbar() {
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          {/* AHORA USAMOS LA RUTA ABSOLUTA DESDE LA CARPETA PUBLIC */}
           <img
-            src="/phard-navbar-logo.png"
-            alt="PHARD Logo"
-            style={{ height: '30px' }}
+            src={phardNavbarLogo}
+            alt="Logo"
+            style={{ height: '35px' }}
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -82,6 +82,8 @@ function CustomNavbar() {
             </NavDropdown>
             <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
             {isLoggedIn && <Nav.Link as={Link} to="/checkout">Checkout</Nav.Link>}
+            {/* Nuevo enlace para agregar producto (solo si está logueado) */}
+            {isLoggedIn && <Nav.Link as={Link} to="/admin/add-product">Agregar Producto</Nav.Link>}
           </Nav>
           <Nav className="align-items-center">
             <Nav.Link as={Link} to="/carrito" className="me-2">

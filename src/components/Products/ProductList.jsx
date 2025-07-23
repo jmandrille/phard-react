@@ -8,12 +8,13 @@ function ProductList({ categoryName }) {
   const [error, setError] = useState(null);
   const [currentCategory, setCurrentCategory] = useState(null);
 
-
   useEffect(() => {
+    const mockApiUrl = 'https://6880fa88f1dcae717b643438.mockapi.io/api/v1/productos';
     const fetchProducts = async () => {
-      let apiUrl = 'https://fakestoreapi.com/products';
+
+      let finalUrl = `${mockApiUrl}?sortBy=id&order=desc`;
       if (categoryName) {
-        apiUrl = `https://fakestoreapi.com/products/category/${encodeURIComponent(categoryName)}`;
+        finalUrl += `&category=${encodeURIComponent(categoryName)}`;
         setCurrentCategory(categoryName);
       } else {
         setCurrentCategory(null);
@@ -22,16 +23,17 @@ function ProductList({ categoryName }) {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(apiUrl);
+        const response = await fetch(finalUrl);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+        
 
         const formattedProducts = data.map(item => ({
           id: item.id,
-          name: item.title,
-          price: item.price.toFixed(2),
+          name: item.title, 
+          price: parseFloat(item.price).toFixed(2),
           image: item.image,
           description: item.description,
           category: item.category
@@ -78,7 +80,7 @@ function ProductList({ categoryName }) {
         </Container>
     );
   }
-
+  
   const pageTitle = currentCategory 
     ? `Productos en: ${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` 
     : "Todos los Productos";
