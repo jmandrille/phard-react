@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Cart() {
   const { cartItems, removeFromCart, updateItemQuantity, clearCart, getCartTotal } = useCart();
-  const { isLoggedIn, login } = useAuth();
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -20,17 +20,8 @@ function Cart() {
   };
 
   const handleLoginFromModal = () => {
-    const username = prompt('Usuario:', 'talento');
-    const password = prompt('Contraseña:', '2025');
-    if (username && password) {
-      const success = login(username, password);
-      if (success) {
-        setShowLoginModal(false);
-        navigate('/checkout');
-      } else {
-        alert('Credenciales incorrectas. Inténtalo de nuevo.');
-      }
-    }
+    setShowLoginModal(false);
+    navigate('/login');
   };
 
   const handleCloseModal = () => setShowLoginModal(false);
@@ -58,9 +49,9 @@ function Cart() {
                   {item.name}
                 </Col>
                 <Col xs={5} md={3}>
-                  <Button 
-                    variant="outline-secondary" 
-                    size="sm" 
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
                     onClick={() => updateItemQuantity(item.id, item.quantity - 1)}
                     disabled={item.quantity <= 1}
                     className="me-2"
@@ -68,9 +59,9 @@ function Cart() {
                     -
                   </Button>
                   {item.quantity}
-                  <Button 
-                    variant="outline-secondary" 
-                    size="sm" 
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
                     onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
                     className="ms-2"
                   >
@@ -117,7 +108,7 @@ function Cart() {
             Cancelar
           </Button>
           <Button variant="primary" onClick={handleLoginFromModal}>
-            Iniciar Sesión
+            Ir a Login
           </Button>
         </Modal.Footer>
       </Modal>
