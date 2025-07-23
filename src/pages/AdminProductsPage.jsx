@@ -49,13 +49,13 @@ function AdminProductsPage() {
               <td style={{ textTransform: 'capitalize' }}>{product.category}</td>
               <td>${parseFloat(product.price).toFixed(2)}</td>
               <td>
-                <Button title="Ver" variant="info" size="sm" className="me-2" onClick={() => navigate(`/producto/${product.id}`)}>
+                <Button aria-label={`Ver producto ${product.name}`} variant="info" size="sm" className="me-2" onClick={() => navigate(`/producto/${product.id}`)}>
                   <FaEye />
                 </Button>
-                <Button title="Editar" variant="warning" size="sm" className="me-2" onClick={() => navigate(`/admin/edit/${product.id}`)}>
+                <Button aria-label={`Editar producto ${product.name}`} variant="warning" size="sm" className="me-2" onClick={() => navigate(`/admin/edit/${product.id}`)}>
                   <FaEdit />
                 </Button>
-                <Button title="Eliminar" variant="danger" size="sm" onClick={() => handleDelete(product.id)}>
+                <Button aria-label={`Eliminar producto ${product.name}`} variant="danger" size="sm" onClick={() => handleDelete(product.id)}>
                   <FaTrash />
                 </Button>
               </td>

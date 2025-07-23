@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import { CartProvider } from './contexts/CartContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProductsProvider } from './contexts/ProductsContext';
@@ -18,6 +17,7 @@ import LoginPage from './pages/LoginPage';
 import AddProductPage from './pages/AddProductPage';
 import AdminProductsPage from './pages/AdminProductsPage';
 import EditProductPage from './pages/EditProductPage';
+import OrdersPage from './pages/OrdersPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import './App.css';
@@ -27,18 +27,6 @@ function App() {
     <AuthProvider>
       <ProductsProvider>
         <CartProvider>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-          />
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
@@ -47,11 +35,15 @@ function App() {
               <Route path="/categoria/:categoryName" element={<CategoryPage />} />
               <Route path="/contacto" element={<ContactoPage />} />
               <Route path="/login" element={<LoginPage />} />
+
               <Route path="/carrito" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
               <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+              <Route path="/mis-pedidos" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
+
               <Route path="/admin/products" element={<ProtectedRoute><AdminProductsPage /></ProtectedRoute>} />
               <Route path="/admin/add-product" element={<ProtectedRoute><AddProductPage /></ProtectedRoute>} />
               <Route path="/admin/edit/:productId" element={<ProtectedRoute><EditProductPage /></ProtectedRoute>} />
+
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </MainLayout>
