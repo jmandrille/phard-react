@@ -81,9 +81,12 @@ function CustomNavbar() {
               )}
             </NavDropdown>
             <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
+            
+            {/* --- ENLACES PARA USUARIOS LOGUEADOS --- */}
             {isLoggedIn && <Nav.Link as={Link} to="/checkout">Checkout</Nav.Link>}
-            {/* Nuevo enlace para agregar producto (solo si está logueado) */}
-            {isLoggedIn && <Nav.Link as={Link} to="/admin/add-product">Agregar Producto</Nav.Link>}
+            {isLoggedIn && <Nav.Link as={Link} to="/admin/products">Gestionar Productos</Nav.Link>}
+            {/* ----------------------------------------- */}
+
           </Nav>
           <Nav className="align-items-center">
             <Nav.Link as={Link} to="/carrito" className="me-2">
