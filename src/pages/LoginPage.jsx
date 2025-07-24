@@ -37,7 +37,7 @@ function LoginPage() {
               <Form.Label>Contraseña</Form.Label>
               <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </Form.Group>
-            <p className="mt-3 small">Para probar, usa: <strong>Usuario:</strong> `talento` / <strong>Contraseña:</strong> `2025`</p>
+            <p className="mt-3 small">Para probar, usa: <strong>Usuario:</strong> `user` / <strong>Contraseña:</strong> `pass`</p>
             <Button className="w-100 mt-3" type="submit">
               Iniciar Sesión
             </Button>

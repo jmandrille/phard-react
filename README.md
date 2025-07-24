@@ -1,99 +1,81 @@
-# PHARD E-commerce - Proyecto React
+# PHARD E-commerce - Proyecto Final de React
 
-PHARD E-commerce es una aplicación web de frontend para una tienda online, desarrollada con React y Vite. La plataforma permite a los usuarios navegar por un catálogo de productos, ver detalles individuales, filtrar por categorías y gestionar un carrito de compras. Incorpora un sistema de autenticación simulado para proteger rutas específicas como el proceso de checkout.
+PHARD E-commerce es una aplicación web front-end completa para una tienda online, desarrollada con React y Vite. La plataforma permite a los usuarios navegar por un catálogo de productos, filtrar por categorías y búsqueda, y gestionar un carrito de compras. Incluye un panel de administración protegido para la gestión de productos (CRUD) y un historial de pedidos para usuarios registrados.
+
+
+**URL del sitio desplegado:** [https://javier-mandrilletalento2025.vercel.app/](https://javier-mandrilletalento2025.vercel.app/)
+
+---
 
 ## Funcionalidades Implementadas
 
-* **Catálogo de Productos:**
-    * Visualización de productos desde Fake Store API.
-    * Imágenes de producto en formato cuadrado (con `object-fit: contain`).
-    * Manejo de estados de carga y errores.
-    * Filtro y navegación por categorías dinámicas.
-* **Detalle de Producto:** Rutas dinámicas para vista individual.
-* **Carrito de Compras:**
-    * Agregar, actualizar cantidad, eliminar ítems, vaciar carrito.
-    * Cálculo de total.
-    * Estado global con React Context API y persistencia en `localStorage`.
-* **Navegación:**
-    * Ruteo con React Router DOM.
-    * Rutas estáticas (Inicio, Productos, Contacto, Carrito).
-    * Rutas dinámicas (Detalle de Producto, Categorías).
-    * Página 404.
-* **Autenticación (Simulada):**
-    * Login/Logout (mock: usuario `user`, contraseña `pass`).
-    * Ruta protegida para `/checkout`.
-    * Modal de invitación a login para checkout.
-* **Diseño y Branding:**
-    * Interfaz responsiva con React Bootstrap.
-    * Favicon, logos y título de pestaña personalizados para la marca "PHARD".
+### Para Clientes
+* **Catálogo de Productos:** Visualización de productos desde una API personalizada (MockAPI), con paginación y ordenamiento de nuevos productos primero.
+* **Búsqueda y Filtros:** Búsqueda en tiempo real por nombre de producto y filtrado por categorías dinámicas.
+* **Detalle de Producto:** Rutas dinámicas para una vista detallada de cada ítem.
+* **Carrito de Compras:** Funcionalidad completa para agregar, modificar cantidad, y eliminar productos. El estado es global (Context API) y persistente (`localStorage`).
+* **Autenticación de Usuarios:** Sistema de login/logout con una página de formulario dedicada. El estado de la sesión persiste.
+* **Checkout Simulado:** Flujo de compra protegido que guarda un registro del pedido y vacía el carrito.
+* **Historial de Pedidos:** Página protegida para que los usuarios vean un listado de sus compras anteriores.
+
+### Para Administradores
+* **Panel de Gestión:** Dashboard protegido para administrar el inventario.
+* **CRUD Completo de Productos:**
+    * **Crear:** Formulario con validaciones para agregar nuevos productos a la API.
+    * **Leer:** Tabla con todos los productos, mostrando ID, nombre, categoría y precio.
+    * **Actualizar:** Formulario reutilizable para editar la información de un producto existente.
+    * **Eliminar:** Opción para borrar productos con un diálogo de confirmación.
+
+---
 
 ## Tecnologías Utilizadas
 
-* **Framework/Librería Principal:** [React](https://reactjs.org/) (v18+)
-* **Herramienta de Build:** [Vite](https://vitejs.dev/)
+* **Framework:** **React 19**
+* **Herramienta de Build:** **Vite**
 * **Lenguaje:** JavaScript (ES6+)
-* **Gestión de Estado:** React Context API
-* **Ruteo:** [React Router DOM](https://reactrouter.com/) (v6+)
-* **UI Framework:** [React Bootstrap](https://react-bootstrap.github.io/) & [Bootstrap 5](https://getbootstrap.com/)
-* **API Externa:** [Fake Store API](https://fakestoreapi.com/) (para datos de productos y categorías)
-* **Persistencia Local:** `localStorage` (para carrito y estado de autenticación)
-* **Control de Versiones:** Git & GitHub
+* **Gestión de Estado:** **React Context API** para un manejo global y modular del carrito, productos y autenticación.
+* **Ruteo:** **React Router DOM v6** para la navegación y protección de rutas.
+* **UI Framework:** **React Bootstrap** & **Bootstrap 5** para un diseño responsivo y componentes de interfaz.
+* **API:** **MockAPI** para la persistencia de datos de productos y pedidos (CRUD completo).
+* **Notificaciones:** **React Toastify** para feedback al usuario.
+* **Iconos:** **React Icons** para mejorar la interfaz visual.
+* **SEO:** **Tags nativos** (`<title>`, `<meta>`) para la gestión del head del documento.
 
-## Configuración y Puesta en Marcha del Proyecto
+---
 
-Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
+## Instalación y Puesta en Marcha Local
 
 ### Prerrequisitos
+* Node.js (v18 o superior)
+* npm
 
-* Node.js (v18 o superior recomendado) - Puedes descargarlo desde [nodejs.org](https://nodejs.org/)
-* npm (usualmente viene con Node.js) o Yarn
-
-### Instalación
+### Pasos
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone https://github.com/jmandrille/phard-react.git
-    cd tu-repositorio-phard
+    git clone [https://github.com/jmandrille/phard-react.git](https://github.com/jmandrille/phard-react.git)
+    cd phard-react
     ```
 
-2.  **Instala las dependencias del proyecto:**
+2.  **Instala las dependencias:**
     ```bash
     npm install
     ```
-    *(O `yarn install` si usas Yarn)*
 
-### Ejecución
-
-1.  **Iniciar el servidor de desarrollo:**
+3.  **Ejecuta el proyecto:**
     ```bash
     npm run dev
     ```
-    Esto iniciará la aplicación en modo de desarrollo. Generalmente estará disponible en `http://localhost:5173` (Vite te indicará la URL en la consola). La aplicación se recargará automáticamente si realizas cambios en el código.
+    La aplicación estará disponible en `http://localhost:5173`.
+
+### Credenciales de Prueba
+* **Usuario:** `user`
+* **Contraseña:** `pass`
+
+---
 
 ## Scripts Disponibles
 
-En el directorio del proyecto, puedes ejecutar:
-
-* `npm run dev`: Inicia la aplicación en modo de desarrollo.
-* `npm run build`: Compila la aplicación para producción en la carpeta `dist/`.
-* `npm run lint`: Ejecuta el linter (si está configurado por Vite, usualmente ESLint).
-* `npm run preview`: Sirve localmente la build de producción desde la carpeta `dist/` para previsualizarla.
-
-## Estructura de Carpetas (Resumen)
-
-├── public/               # Assets estáticos (favicon, etc.)
-├── src/
-│   ├── assets/           # Imágenes, fuentes, etc., usados en componentes
-│   ├── components/       # Componentes reutilizables (Layout, Products, Cart, ProtectedRoute)
-│   ├── contexts/         # Contextos de React (CartContext, AuthContext)
-│   ├── pages/            # Componentes que representan páginas (HomePage, ProductosPage, etc.)
-│   ├── App.css           # Estilos globales de la aplicación
-│   ├── App.jsx           # Componente principal de la aplicación y configuración de rutas
-│   ├── index.css         # Estilos base y reseteos
-│   └── main.jsx          # Punto de entrada de la aplicación
-├── .eslintrc.cjs         # Configuración de ESLint
-├── .gitignore            # Archivos ignorados por Git
-├── index.html            # Plantilla HTML principal
-├── package.json          # Metadatos del proyecto y dependencias
-├── README.md             # Este archivo
-└── vite.config.js        # Configuración de Vite
+* `npm run dev`: Inicia el servidor de desarrollo.
+* `npm run build`: Compila la aplicación para producción.
+* `npm run preview`: Previsualiza la build de producción localmente.
